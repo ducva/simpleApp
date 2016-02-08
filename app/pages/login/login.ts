@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic-framework/ionic';
+import {Page, NavController, Alert} from 'ionic-framework/ionic';
 
 import {User} from "./../../model/user";
 import {ServiceResult} from '../../model/service_result';
@@ -23,6 +23,12 @@ export class LoginPage {
       this.navigator.push(DashboardPage, {'data':result.data});
     }
     else{
+      let alert = Alert.create({
+        title: 'Login!',
+        subTitle: 'Invalid username/password',
+        buttons: ['Ok']
+      });
+      this.navigator.present(alert);
       console.debug('Login failed');
     }
   }

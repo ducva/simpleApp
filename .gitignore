@@ -3,8 +3,12 @@ www/build/
 platforms/
 plugins/
 .DS_Store
+app/**/*.js
 app/app.js
 app/model/user.js
 app/pages/home/home.js
 app/pages/login/login.js
 app/pages/login/login.js.map
+app/model/service_result.js
+app/pages/dashboard/dashboard.js
+app/service/login.service.js
