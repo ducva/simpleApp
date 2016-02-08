@@ -11,11 +11,25 @@
     "inlineSourceMap": false,
     "inlineSources": false
   },
+  "filesGlob": [
+    "**/*.ts",
+    "**/*.tsx",
+    "!node_modules/**"
+  ],
   "files": [
-    "app/app.ts"
+    "app/app.ts",
+    "app/model/service_result.ts",
+    "app/model/user.ts",
+    "app/pages/dashboard/dashboard.ts",
+    "app/pages/home/home.ts",
+    "app/pages/login/login.ts",
+    "app/service/login.service.ts"
   ],
   "exclude": [
     "node_modules"
   ],
-  "compileOnSave": false
+  "compileOnSave": false,
+  "atom": {
+    "rewriteTsconfig": true
+  }
 }

@@ -1,16 +1,17 @@
 import {App, Platform} from 'ionic-framework/ionic';
-import {HomePage} from './pages/home/home';
+import {LoginPage} from './pages/login/login';
 
 // https://angular.io/docs/ts/latest/api/core/Type-interface.html
+
 import {Type} from 'angular2/core';
 
 
 @App({
-  templateUrl: 'build/app.html'
+  templateUrl: 'build/app.html',
   config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })
 export class MyApp {
-  rootPage: Type = HomePage;
+  rootPage: Type = LoginPage;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
