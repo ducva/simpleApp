@@ -1,3 +1,10 @@
+<ion-navbar *navbar>
+  <ion-title>Dashboard</ion-title>
+  <ion-buttons end>
+    <button (click)="logout()">
+      Log Out</button>
+    </ion-buttons>
+</ion-navbar>
 <ion-content class="dashboard">
   Hello, {{userData.username}}!
 </ion-content>
