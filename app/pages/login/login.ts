@@ -20,7 +20,7 @@ export class LoginPage {
   login(){
     var result:ServiceResult = this._loginService.login(this.loginData);
     if(result && result.isOk){
-      this.navigator.push(DashboardPage, {'data':result.data});
+      this.navigator.setRoot(DashboardPage, {'data':result.data});
     }
     else{
       let alert = Alert.create({

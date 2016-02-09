@@ -1,11 +1,17 @@
 <ion-content>
+  <ion-list>
     <ion-item>
-        <ion-input type="text" placeholder="Username" [(ngModel)]="loginData.username"></ion-input>
+        <ion-label>Username</ion-label>
+        <ion-input type="text" [(ngModel)]="loginData.username"></ion-input>
     </ion-item>
     <ion-item>
-        <ion-input type="password" placeholder="Password" [(ngModel)]="loginData.password"></ion-input>
+      <ion-label>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="loginData.password"></ion-input>
     </ion-item>
-    <button class="button button-positive button-block" (click)="login()">
+  </ion-list>
+  <div class="padding">
+    <button class=" button button-positive button-block" (click)="login()">
         Login
     </button>
+  </div>
 </ion-content>
