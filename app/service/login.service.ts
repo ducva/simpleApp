@@ -3,15 +3,25 @@ import {Injectable} from 'angular2/core';
 import {User} from "../model/user";
 import {ServiceResult} from '../model/service_result';
 
+import * as Firebase from 'firebase';
+
 @Injectable()
 export class LoginService{
-  login(loginData: User): ServiceResult{
+  private firebaseUrl = "https://luminous-torch-5124.firebaseio.com";
+
+  login(login:User): Promise{
     var result: ServiceResult = {isOk:false};
-    if(loginData && loginData.username==='admin' && loginData.password==='admin'){
-      result.isOk = true;
-      result.data = loginData;
-      return result;
-    }
-    return result;
+    var ref = new Firebase(this.firebaseUrl);
+    return ref.authWithPassword({
+       email    : login.username,
+       password : login.password
+     }, function(error, authData){
+       if(error){
+         return result;
+       }
+       else{
+         return authData;
+       }
+     });
   }
 }

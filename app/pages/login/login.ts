@@ -1,4 +1,4 @@
-import {Page, NavController, Alert} from 'ionic-framework/ionic';
+import {Page, NavController, Alert, Storage, LocalStorage, Events} from 'ionic-framework/ionic';
 
 import {User} from "./../../model/user";
 import {ServiceResult} from '../../model/service_result';
@@ -11,25 +11,38 @@ import {DashboardPage} from '../dashboard/dashboard';
   providers: [LoginService]
 })
 export class LoginPage {
-  public loginData: User = {username:'', password:''};
-
-  constructor(private _loginService: LoginService,  private navigator: NavController) {
-
+  // declare login interface for login data.
+  public login: User = {};
+  private submitted = false;
+  private storage = new Storage(LocalStorage);
+  private events: Events;
+  private HAS_LOGGED_IN = 'hasLoggedIn';
+  private USER ='userInfo';
+  constructor(private _loginService: LoginService,  private navigator: NavController, events: Events) {
   }
 
-  login(){
-    var result:ServiceResult = this._loginService.login(this.loginData);
-    if(result && result.isOk){
-      this.navigator.setRoot(DashboardPage, {'data':result.data});
-    }
-    else{
-      let alert = Alert.create({
-        title: 'Login!',
-        subTitle: 'Invalid username/password',
-        buttons: ['Ok']
+  onLogin(form){
+    this.submitted = true;
+    if(form.valid){
+      this.login = form.value;
+      var result = this._loginService.login(this.login);
+      var that = this;
+      result.then(function(response){
+        if(response){
+            response.username = that.login.username;
+            this.storage.put(this.HAS_LOGGED_IN, true);
+            this.storage.put(this.USER, response);
+            this.events.publish('user:login');
+            that.navigator.setRoot(DashboardPage, {'data':response});
+        }
+      }, function(error){
+        let alert = Alert.create({
+          title: 'Login!',
+          subTitle: 'Invalid username/password',
+          buttons: ['Ok']
+        });
+        that.navigator.present(alert);
       });
-      this.navigator.present(alert);
-      console.debug('Login failed');
     }
   }
 }
