@@ -6,5 +6,8 @@
     </ion-buttons>
 </ion-navbar>
 <ion-content class="dashboard">
-  Hello, {{userData.username}}!
+  <ion-tabs>
+  <ion-tab [root]="homeTabRoot" tabTitle="Home" tabIcon="calendar"></ion-tab>
+  <ion-tab [root]="orderTabRoot" tabTitle="Orders" tabIcon="contacts"></ion-tab>
+</ion-tabs>
 </ion-content>

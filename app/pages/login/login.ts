@@ -14,11 +14,11 @@ export class LoginPage {
   // declare login interface for login data.
   public login: User = {};
   private submitted = false;
-  private storage = new Storage(LocalStorage);
+
   private events: Events;
-  private HAS_LOGGED_IN = 'hasLoggedIn';
-  private USER ='userInfo';
+
   constructor(private _loginService: LoginService,  private navigator: NavController, events: Events) {
+    this.events = events;
   }
 
   onLogin(form){
@@ -30,9 +30,8 @@ export class LoginPage {
       result.then(function(response){
         if(response){
             response.username = that.login.username;
-            this.storage.put(this.HAS_LOGGED_IN, true);
-            this.storage.put(this.USER, response);
-            this.events.publish('user:login');
+
+            that.events.publish('user:login', response);
             that.navigator.setRoot(DashboardPage, {'data':response});
         }
       }, function(error){

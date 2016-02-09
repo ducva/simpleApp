@@ -1,8 +1,10 @@
-import {Page, NavController, NavParams} from 'ionic-framework/ionic';
+import {Page, NavParams, NavController, Events} from 'ionic-framework/ionic';
 
 import {User} from '../../model/user';
 
 import {LoginPage} from '../login/login';
+
+import {HomePage} from '../home/home';
 
 @Page({
   templateUrl:'build/pages/dashboard/dashboard.html'
@@ -10,11 +12,13 @@ import {LoginPage} from '../login/login';
 
 export class DashboardPage {
   public userData : User;
-  constructor(private navParams: NavParams, private navController: NavController){
-    this.userData = navParams.get('data');
+  public homeTabRoot;
+  constructor(private navParams : NavParams, private navController: NavController, private events: Events){
+    this.homeTabRoot = HomePage;
   }
 
   logout(){
+    this.events.publish('user:logout');
     this.navController.setRoot(LoginPage);
   }
 }
