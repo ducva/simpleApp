@@ -1,4 +1,4 @@
-import {Page, NavParams, Storage, LocalStorage} from 'ionic-framework/ionic';
+import {Page, Storage, LocalStorage} from 'ionic-framework/ionic';
 
 import {User} from '../../model/user';
 @Page({
@@ -7,7 +7,7 @@ import {User} from '../../model/user';
 export class HomePage {
   public userData;
   private storage = new Storage(LocalStorage);
-  constructor(private navParams: NavParams) {
+  constructor() {
     this.storage.getJson('userInfo').then(data => {
       this.userData = data[0];
     });
