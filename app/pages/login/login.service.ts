@@ -1,14 +1,16 @@
 import {Injectable} from 'angular2/core';
 
 import {Events, Storage, LocalStorage} from 'ionic-framework/ionic';
-import {User} from "../model/user";
-import {ServiceResult} from '../model/service_result';
+import {User} from "../../model/user";
+import {ServiceResult} from '../../model/service_result';
+import {AppSettings} from '../../app.settings';
 
-import * as Firebase from 'firebase';
+// Tell TypeScript that Firebase is a global object.
+declare var Firebase;
+
 
 @Injectable()
 export class LoginService{
-
   private storage = new Storage(LocalStorage);
   private HAS_LOGGED_IN = 'hasLoggedIn';
   private USER ='userInfo';
@@ -23,22 +25,21 @@ export class LoginService{
       this.onLoggedOut();
     }
     events.subscribe('user:logout', userLoggedOutHandler);
-  }
 
-  private firebaseUrl = "https://luminous-torch-5124.firebaseio.com";
+  }
 
   onLoggedOut(){
-    this.storage.remove(this.HAS_LOGGED_IN);
-    this.storage.remove(this.USER);
+    this.storage.remove(AppSettings.HAS_LOGGED_IN);
+    this.storage.remove(AppSettings.USER_INFO);
   }
   onLoggedIn(userInfo){
-    this.storage.set(this.HAS_LOGGED_IN, true);
-    this.storage.setJson(this.USER, userInfo);
+    this.storage.set(AppSettings.HAS_LOGGED_IN, true);
+    this.storage.setJson(AppSettings.USER_INFO, userInfo);
   }
 
   login(login:User){
     var result: ServiceResult = {isOk:false};
-    var ref = new Firebase(this.firebaseUrl);
+    var ref = new Firebase(AppSettings.FIREBASE_ENDPOINT);
     return ref.authWithPassword({
        email    : login.username,
        password : login.password

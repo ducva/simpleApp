@@ -1,0 +1,55 @@
+<ion-content [ngClass]="{'busy': isBusy}">
+  <ion-card *ngIf="!selectedOrder">
+
+  <ion-list>
+    <ion-item *ngFor="#d of (orders | async)">
+        <button ion-item *ngIf="d" (click)="openDetail(d)">
+          Order #{{d.id}} - {{d.orderDate}}
+          <h2>Customer Name: {{d.customerName}}</h2>
+          <h3>Total: {{d.getTotalAmount()}}</h3>
+          Status: {{d.status}}
+        </button>
+    </ion-item>
+  </ion-list>
+</ion-card>
+
+<div *ngIf="selectedOrder">
+ Order #{{selectedOrder.id}}
+ <br/>
+ Order Date: {{selectedOrder.orderDate}}
+ <br/>
+ Customer Name: {{selectedOrder.customerName}}
+ <br/>
+
+ <ion-list *ngIf="selectedOrder.items">
+   <ion-list-header>
+     Items
+   </ion-list-header>
+   <div grid-page>
+     <ion-row *ngFor="#item of selectedOrder.items">
+       <ion-col width-67>
+         Name : {{item.name}}
+         Quantity: {{item.quantity}}
+         Unit Price: {{item.unitPrice}}
+       </ion-col>
+       <ion-col width-33>Total Price: {{item.getTotalPrice()}}</ion-col>
+     </ion-row>
+   </div>
+ </ion-list>
+ <div grid-page>
+   <ion-row>
+     <ion-col width-67>
+
+     </ion-col>
+     <ion-col width-33>
+       Total Amount: {{selectedOrder.getTotalAmount()}}
+     </ion-col>
+   </ion-row>
+ </div>
+
+
+ <button (click)="closeDetail()">Close</button>
+ <button>Process Order</button>
+ <button>Cancel Order</button>
+</div>
+</ion-content>

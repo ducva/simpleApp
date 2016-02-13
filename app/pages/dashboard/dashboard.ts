@@ -5,16 +5,19 @@ import {User} from '../../model/user';
 import {LoginPage} from '../login/login';
 
 import {HomePage} from '../home/home';
+import {OrdersPage} from '../orders/orders';
 
 @Page({
   templateUrl:'build/pages/dashboard/dashboard.html'
 })
 
 export class DashboardPage {
-  public userData : User;
-  public homeTabRoot;
+  userData : User;
+  homeTabRoot;
+  orderTabRoot;
   constructor(private navParams : NavParams, private navController: NavController, private events: Events){
     this.homeTabRoot = HomePage;
+    this.orderTabRoot = OrdersPage;
   }
 
   logout(){

@@ -3,7 +3,7 @@ import {Page, NavController, Alert, Storage, LocalStorage, Events} from 'ionic-f
 import {User} from "./../../model/user";
 import {ServiceResult} from '../../model/service_result';
 
-import {LoginService} from '../../service/login.service';
+import {LoginService} from './login.service';
 import {DashboardPage} from '../dashboard/dashboard';
 
 @Page({
@@ -15,10 +15,7 @@ export class LoginPage {
   public login: User = {};
   private submitted = false;
 
-  private events: Events;
-
-  constructor(private _loginService: LoginService,  private navigator: NavController, events: Events) {
-    this.events = events;
+  constructor(private _loginService: LoginService,  private navigator: NavController, private events: Events) {
   }
 
   onLogin(form){
